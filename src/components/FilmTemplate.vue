@@ -9,7 +9,7 @@
         </v-card>
       </v-flex>
       <v-flex xs6>
-        <v-card>
+        <v-card v-if="showDetails">
           <v-card-text><app-film :film="selectedFilm"></app-film></v-card-text>
         </v-card>
       </v-flex>
@@ -38,6 +38,11 @@
         isLoading: false
       }
     },
+    computed: {
+        showDetails() {
+          return this.selectedFilm !== null;
+        }
+    },
     methods: {
       selectFilm(film) {
         // console.log(film);
@@ -47,6 +52,7 @@
         // console.log("me new search", searchTerm);
         this.isLoading = true;
         this.films = [];
+        this.selectedFilm = null;
 
         axios.get('https://api.themoviedb.org/3/search/movie', {
             params: {
@@ -58,14 +64,15 @@
           .then(function (response) {
             //console.log(response);
             this.films = response.data.results.map(data => ({
-                                                             id: data.id, thumbnail: `http://image.tmdb.org/t/p/w500/${data.backdrop_path}`, 
+                                                             id: data.id, 
+                                                             thumbnail: `http://image.tmdb.org/t/p/w500/${data.backdrop_path}`, 
                                                              poster: `http://image.tmdb.org/t/p/w500/${data.poster_path}`, 
                                                              title: data.original_title
                                                             }));
             this.isLoading = false;
           }.bind(this))
           .catch(function (error) {
-            // console.log(error);
+            console.log(error);
             this.isLoading = false;
           }.bind(this));
 
