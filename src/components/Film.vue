@@ -34,51 +34,11 @@
         appReviews: Reviews
     },
     props: [ 'film' ],
-    data() {
-        return {
-            reviews: []
+    computed: {
+        reviews() {
+            return this.film.reviews;
         }
-    },
-    methods: {
-        fetchReviews() {
-            console.log("Fetching reviews");
-            axios.get(`https://api.themoviedb.org/3/movie/${this.film.id}/reviews`, {
-            params: {
-              api_key: 'd81847c99fcc2c246df68557ee7a651b',
-              language: 'en'
-            }
-          })
-          .then(function (response) {
-            //console.log(response);
-            console.log("Review count:", response.data.results.length);
-            this.reviews = response.data.results.map(data => ({
-                                                                id: data.id, 
-                                                                author: data.author, 
-                                                                content: data.content,
-                                                                url: data.url
-                                                            }));
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
-          }.bind(this));
-
-        }
-    },
-    created() {
-        console.log('Created');
-        // this.fetchReviews();
-        this.fetchReviews();
-    },
-    updated() {
-        console.log('Updated');
-        // this.fetchReviews();
-    },
-    watch : {
-        film : function (value) {
-          console.log('film changed to '+value);
-          this.fetchReviews();
-        }
-      }
+    }
   }
 </script>
 
