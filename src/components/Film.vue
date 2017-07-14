@@ -2,21 +2,11 @@
     <div>
         <div v-if="film">
                 <v-card>
-                    <!-- <v-card-media :src="film.poster" width="" height="300px"></v-card-media> -->
                     <v-card-title primary-title>
                     <img :src="film.poster"></img>
                     </v-card-title>
                     
                 </v-card>
-            
-            
-            
-            
-<!--             
-            <div>
-                <img :src="film.poster"></img>
-            </div>
-             {{ film.title }}  -->
             <app-reviews :reviews="reviews"></app-reviews>
         </div>
         <div v-else>
