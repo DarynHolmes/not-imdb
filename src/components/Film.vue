@@ -28,7 +28,7 @@
 <script>
   import axios from 'axios';  
   import Reviews from './Reviews.vue';  
-
+  
   export default {
     components: {
         appReviews: Reviews

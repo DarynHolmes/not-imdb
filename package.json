@@ -9,8 +9,10 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "apollo-client": "^1.9.0-0",
     "axios": "^0.16.2",
     "debounce": "^1.0.2",
+    "graphql-tag": "^2.4.2",
     "vue": "^2.3.4",
     "vuetify": "^0.13.0"
   },

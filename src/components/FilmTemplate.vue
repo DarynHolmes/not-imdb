@@ -21,7 +21,8 @@
   import FilmList from './FilmList.vue';
   import Film from './Film.vue';
   import axios from 'axios';
-
+  import api from '../api';
+  
   export default {
     components: {
       appFilmList: FilmList,
@@ -49,33 +50,17 @@
         this.selectedFilm = film;
       },
       newSearch(searchTerm) {
-        // console.log("me new search", searchTerm);
+        console.log("me new search", searchTerm);
         this.isLoading = true;
         this.films = [];
         this.selectedFilm = null;
 
-        axios.get('https://api.themoviedb.org/3/search/movie', {
-            params: {
-              api_key: 'd81847c99fcc2c246df68557ee7a651b',
-              query: searchTerm,
-              language: 'en'
-            }
-          })
-          .then(function (response) {
-            //console.log(response);
-            this.films = response.data.results.map(data => ({
-                                                             id: data.id, 
-                                                             thumbnail: `http://image.tmdb.org/t/p/w500/${data.backdrop_path}`, 
-                                                             poster: `http://image.tmdb.org/t/p/w500/${data.poster_path}`, 
-                                                             title: data.original_title
-                                                            }));
-            this.isLoading = false;
-          }.bind(this))
-          .catch(function (error) {
-            console.log(error);
-            this.isLoading = false;
-          }.bind(this));
-
+        api.searchByTitle(searchTerm)
+          .then(response => {
+            // console.log(data);
+            this.films = response.data.films
+            })
+          .catch(console.error);
       }
     }
     
